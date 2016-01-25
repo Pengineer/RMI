@@ -7,12 +7,12 @@ import java.rmi.Naming;
 import java.util.List;
 
 /**
- * 5，最后建立客户端进行测试，注意客户调用的RMI路径必须服务器配置一致
+ * 5，最后建立客户端进行测试，注意客户调用的RMI路径必须服务器配置一致（此处是本地客户端测试，本地IP：192.168.88.6）
  * 
  * @author liangjian
  *
  */
-public class Program {
+public class ClientProgram {
 	public static void main(String[] args){
 		try{
 			//调用远程服务对象，注意RMI路径与接口必须与服务器配置一致
