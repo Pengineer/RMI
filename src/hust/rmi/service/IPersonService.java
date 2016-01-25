@@ -22,4 +22,6 @@ public interface IPersonService extends Remote {
 
 	public List<Person> getAllPerson() throws RemoteException;
 	
+	public boolean addPerson(String name, int age) throws RemoteException;
+	
 }

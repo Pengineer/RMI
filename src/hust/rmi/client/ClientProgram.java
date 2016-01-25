@@ -17,10 +17,14 @@ public class ClientProgram {
 		try{
 			//调用远程服务对象，注意RMI路径与接口必须与服务器配置一致
 			IPersonService personService = (IPersonService)Naming.lookup("rmi://127.0.0.1:6600/PersonService");
-			List<Person> personList = personService.getAllPerson();
+			final List<Person> personList = personService.getAllPerson();
+			System.out.println("当前元素个数：" + personList.size() + " 如下：");
 			for(Person person : personList){
 				System.out.println("Name:" + person.getName() + " Age:" + person.getAge());
 			}
+			boolean isSuccess = personService.addPerson("john snow", 24);
+//			System.out.println("当前元素个数：" + personList.size() + " 添加成功：" + isSuccess); // error code ：personList已经被本地化了，需要重新获取最新的list
+			System.out.println("当前元素个数：" + personService.getAllPerson().size() + " 添加成功：" + isSuccess);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}

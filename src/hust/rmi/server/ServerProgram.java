@@ -10,7 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * 4，建立服务器端，在服务器端注册RMI通讯端口与通讯路径，然后通讯javac命令编译文件，通过java -server 命令注册服务。
+ * 4，建立服务器端，在服务器端注册RMI通讯端口与通讯路径。
  * 
  * @author liangjian
  *
@@ -20,19 +20,19 @@ public class ServerProgram {
 	
 	public static void main(String[] args) {
 		try {
-			IPersonService personService = new PersonService();
+			final IPersonService personService = new PersonService();
 			//注册通讯端口
 			remote = LocateRegistry.createRegistry(6600);
 			//注册通讯路径
-//			Naming.rebind("rmi://127.0.0.1:6600/PersonService", personService);    // 客户端和服务端均在本地
-			Naming.rebind("rmi://192.168.88.6:6600/PersonService", personService); // 客户端在192.168.88.176上（将model和service接口两个package打成jar包放到客户端，注意不需要service的实现）
-			System.out.println("Service start and will stop after 20s.");
+			Naming.rebind("rmi://127.0.0.1:6600/PersonService", personService);    // 客户端和服务端均在本地
+//			Naming.rebind("rmi://192.168.88.6:6600/PersonService", personService); // 客户端在192.168.88.176上（将model和service接口两个package打成jar包放到客户端，注意不需要service的实现）
+			System.out.println("Service start and will stop after 60s.");
 			//停止服务的线程
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
-						Thread.sleep(20000);
+						Thread.sleep(60000);
 						boolean isStop = UnicastRemoteObject.unexportObject(remote, true);
 						System.out.println("服务停止：" + isStop);
 						System.exit(0);
